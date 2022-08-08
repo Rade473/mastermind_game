@@ -7,6 +7,8 @@ MAGENTA4 = "\e[45m  4  \e[0m"
 GREEN5 = "\e[42m  5  \e[0m"
 RED6 = "\e[41m  6  \e[0m"
 ALLCOLORS = BLUE1 + " " + BROWN2 + " " + CYAN3 + " " + MAGENTA4 + " " + GREEN5 + " " + RED6
+COLOREDCLUE = "\e[31m \u2022 \e[0m"
+NONCOLOREDCLUE = " \u2022 "
 
   def red
     "\e[31m#{self}\e[0m"
