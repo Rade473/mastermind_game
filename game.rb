@@ -61,9 +61,10 @@ include Instructions
     print '> '
     player_choice()
   end
+
   def player_choice
     puts "You have #{12 - @rounds} tries left"
-    while userinput = gets.nchomp.split('')
+    while userinput = gets.chomp.split('')
       if userinput.length == 4 && userinput.all? {|input| @colors.include?(input)}
         puts 'Your choice:'
         @player_choice.replace(userinput)
