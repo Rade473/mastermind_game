@@ -2,6 +2,14 @@ require_relative 'instructions.rb'
 class Mastermind
 
 include Instructions
+@@colors = {
+  '1' => BLUE1,
+  '2' => BROWN2,
+  '3' => CYAN3,
+  '4' => MAGENTA4,
+  '5' => GREEN5,
+  '6' => RED6
+}
   def initialize
     @player_choice = []
     @clues = []
@@ -10,14 +18,7 @@ include Instructions
     @human_break = false
     @computer_code = []
     @rounds = 0
-    @colors = {
-      '1' => BLUE1,
-      '2' => BROWN2,
-      '3' => CYAN3,
-      '4' => MAGENTA4,
-      '5' => GREEN5,
-      '6' => RED6
-    }
+    
     human_or_computer()
     display_colors()
     if @human_code then
@@ -51,7 +52,7 @@ include Instructions
   end
 
   def start_game_human_coder
-    puts 'Human coder'
+    Computer.new
   end
 
   def start_game_human_breaker
@@ -65,7 +66,7 @@ include Instructions
   def player_choice
     puts "You have #{12 - @rounds} tries left"
     while userinput = gets.chomp.split('')
-      if userinput.length == 4 && userinput.all? {|input| @colors.include?(input)}
+      if userinput.length == 4 && userinput.all? {|input| @@colors.include?(input)}
         puts 'Your choice:'
         @player_choice.replace(userinput)
         @rounds += 1
@@ -76,15 +77,16 @@ include Instructions
       end
     end
     display_player_choice(@player_choice)
+    check_for_clues(@player_choice)
   end
 
   def display_player_choice(input)
-    @player_choice.each{
-    |e| @player_guess.push(@colors[e])
+    @player_guess = []
+    input.each{
+    |e| @player_guess.push(@@colors[e])
     }
     puts @player_guess.map { |e| "#{e}"}.join(' ')
-    @player_guess = []
-    check_for_clues(@player_choice)
+    
   end
   
   def check_for_clues(input)
